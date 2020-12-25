@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block content %}
+<div class="row pt-5 justify-content-center">
+    <div class="col-sm-10">
+        <h1>{{ object.title }}</h1>
+        <h5>{{ object.modify_dt|date:"N d, Y" }}</h5>
+        <div id="{{ object.id }}">
+        </div>
+        <div class="col" id="disqus_thread"></div>
+        <div class="d-grid gap-2 col-8 mx-auto mt-3 mb-3">
+            <a class="btn btn-outline-secondary" href="/">목록으로 돌아가기</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra-script %}
+<script>
+var disqus_config = function() {
+    this.page.identifier = '{{ disqus_id }}';
+    this.page.url = '{{ disqus_url }}';
+    this.page.title = '{{ disqus_title }}';
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://{{ disqus_short }}.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<script>
+    var content = {{ object.content|safe }};
+    content = content.blocks
+    console.log(content);
+    var elem = document.getElementById('{{ object.id }}');
+    for (var i = 0; i < content.length; ++i) {
+        var block = content[i];
+        var type = block.type;
+        if (type === "paragraph") {
+            elem.innerHTML += `<p>${block.data.text}</p>`;
+        } else if (type == "Image") {
+            elem.innerHTML += `<img src=${block.data.file.url} class="img-fluid">`;
+        } else if (type == "Header") {
+            elem.innerHTML += `<h${block.data.level}>${block.data.text}</h${block.data.level}>`
+        } else if (type == "List") {
+            elem.innerHTML += `<ul>`
+            for (var j = 0; j< block.data.items.length; ++j) {
+                elem.innerHTML += `<li>${block.data.items[j]}</li>`
+            }
+            elem.innerHTML += `</ul>`
+        }
+    }
+</script>
+{% endblock %}

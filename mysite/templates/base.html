@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Ori25's blog{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"> 
+        {% block extra-style %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Ori25's blog</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
+                        </ul>
+                        <form class="d-flex" action="/search/" method="post">
+                            {% csrf_token %}
+                            <input class="form-control me-2" name="search_word" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="container" id="main">
+            {% block content %}{% endblock %}
+        </div>
+        {% block footer %}
+        <footer class="footer mt-auto py-3 bg-light">
+            <div class="container text-muted text-end">
+                Personal Info : 
+                <span class="text-muted">E-mail(leejh8372@gmail.com)</span>
+                <a href="https://github.com/DUCK251/" class="text-reset">
+                    Github
+                </a>
+            </div>
+        </footer>
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            window.addEventListener("load", function(event) {
+                var main_container = document.getElementById("main");
+                main_container.style.minHeight = screen.height + "px";
+            });
+        </script>
+        {% block extra-script %}{% endblock %}
+    </body>
+</html>

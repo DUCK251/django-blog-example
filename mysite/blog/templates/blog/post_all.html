@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Ori25's blog{% endblock %}
+
+{%block content %}
+    <div class="row gx-5 gy-5 pt-5">
+        <div class="col-sm-3 d-block d-sm-none">
+            <ul class="list-group shadow">
+                <a href="#" class="list-group-item list-group-item-action disabled">
+                    Category
+                </a>
+                {% for category in categories %}
+                <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action">
+                    {{ category.name }}
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            {% for post in posts %}
+            <div class="card mb-3 shadow">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ post.modify_dt|date:"N d, Y" }}</h6>
+                    <p class="card-text" id='{{ post.id }}'></p>
+                    <a href='{{ post.get_absolute_url }}' class="stretched-link">Continue reading</a>
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-3">
+            <ul class="list-group shadow">
+                <a href="#" class="list-group-item list-group-item-action disabled">
+                    Category
+                </a>
+                {% for category in categories %}
+                <a href="{{ category.get_absolute_url }}" class="list-group-item list-group-item-action">
+                    {{ category.name }}
+                </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra-script %}
+<script>
+    {% for post in posts %}
+    var content = {{ post.content|safe }};
+    content = content.blocks
+    console.log(content);
+    var elem = document.getElementById('{{ post.id }}');
+    for (var i = 0; i < content.length; ++i) {
+        var block = content[i];
+        var type = block.type;
+        if (type === "paragraph") {
+            elem.innerHTML += `<p>${block.data.text}</p>`;
+        } else if (type == "Image") {
+            elem.innerHTML += `<img src=${block.data.file.url} class="img-fluid">`;
+        } else if (type == "Header") {
+            elem.innerHTML += `<h${block.data.level}>${block.data.text}</h${block.data.level}>`
+        } else if (type == "List") {
+            elem.innerHTML += `<ul>`
+            for (var j = 0; j< block.data.items.length; ++j) {
+                elem.innerHTML += `<li>${block.data.items[j]}</li>`
+            }
+            elem.innerHTML += `</ul>`
+        }
+    }
+    {% endfor %}
+</script>
+{% endblock %}

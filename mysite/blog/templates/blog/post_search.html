@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}post_search.html{% endblock %}
+
+{% block content %}
+<br>
+<h1>Search by "{{ search_term }}" </h1>
+<br>
+<div class="row gx-5 gy-5 pt-5">
+    <div class="col-sm-9">
+        {% for post in object_list %}
+        <div class="card mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ post.modify_dt|date:"N d, Y" }}</h6>
+                <p class="card-text" id='{{ post.id }}'>{{ post.description }}</p>
+                <a href='{{ post.get_absolute_url }}' class="stretched-link">Continue reading</a>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
