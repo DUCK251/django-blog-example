@@ -23,5 +23,5 @@ urlpatterns = [
     path('search/', views.SearchFormView.as_view(), name='search'),
 ]
 
-if settings.DEGUG:
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
