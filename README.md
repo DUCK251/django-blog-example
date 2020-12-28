@@ -19,7 +19,7 @@
 입니다. 파일 `/mysite/blog/templates/blog/post_detail.html`을 확인하면 자세한 구현을 확인할 수 있습니다. nginx,gunicorn,aws lightsail을 사용해서 배포했습니다.
 
 ```
-http://3.36.69.250/
+http://15.164.135.64/
 ```
 
 ## Installing Dependencies
