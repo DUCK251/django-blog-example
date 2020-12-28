@@ -21,4 +21,7 @@ urlpatterns = [
          views.ObjectsByCategoryLV.as_view(),
          name='object_list_by_category'),
     path('search/', views.SearchFormView.as_view(), name='search'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEGUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,6 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG']
+# DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -128,9 +129,15 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-MEDIA_URL = '/media/'
+if DEBUG:
+    MEDIA_URL = '/media/'
+else:
+    MEDIA_URL = '/static/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
 
 DISQUS_SHORTNAME = os.environ['DISQUS_SHORTNAME']
 DISQUS_MY_DOMAIN = os.environ['DISQUS_MY_DOMAIN']
