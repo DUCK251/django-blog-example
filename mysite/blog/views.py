@@ -22,7 +22,7 @@ class PostLV(ListView):
     def get_queryset(self):
         posts = Post.objects.all()
         for post in posts:
-            post.content = json.dumps(post.content)
+            post.jsonify_content()
         return posts
 
     def get_context_data(self, **kwargs):
