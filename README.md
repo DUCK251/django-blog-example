@@ -16,7 +16,7 @@
 - Header
 - List
 
-입니다. 파일 `/mysite/blog/templates/blog/post_detail.html`을 확인하면 자세한 구현을 확인할 수 있습니다. nginx,gunicorn,aws lightsail을 사용해서 배포했습니다.
+입니다. 파일 `/mysite/blog/templates/blog/post_detail.html`을 확인하면 자세한 구현을 확인할 수 있습니다. nginx,gunicorn,aws lightsail을 사용해서 배포했습니다. ([참고 자료 링크](https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04))
 
 ```
 http://15.164.135.64/
